@@ -56,7 +56,7 @@
             <p class="section__label">Админка</p>
             <h1>Личный дневник</h1>
             <p class="admin-header__desc">
-              Добавляйте короткие цитаты и темы — каждая ведёт в Telegram, канал или ВК.
+              Короткие цитаты и темы — у каждой записи своя ссылка на пост или страницу.
             </p>
           </div>
           <div class="publish-status publish-status--warn" id="publish-status">Подключите GitHub-токен</div>
@@ -107,12 +107,14 @@
               </div>
 
               <div class="form-group">
-                <label for="entry-social">Куда ведёт ссылка</label>
-                <select id="entry-social" required>
-                  <option value="telegram">Telegram — @anna_yakubova79</option>
-                  <option value="channel">Канал в Telegram</option>
-                  <option value="vk">Группа ВКонтакте</option>
-                </select>
+                <label for="entry-link">Ссылка на пост</label>
+                <input type="url" id="entry-link" required placeholder="https://t.me/madam79kotineiro/42 или https://vk.ru/wall-...">
+                <p class="field-hint">Любой URL — конкретный пост в Telegram, ВК или другая страница</p>
+              </div>
+
+              <div class="form-group">
+                <label for="entry-link-label">Подпись ссылки <span class="label-hint">(необязательно)</span></label>
+                <input type="text" id="entry-link-label" placeholder="Читать пост в канале">
               </div>
 
               <div class="admin-form-actions">

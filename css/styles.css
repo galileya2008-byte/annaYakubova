@@ -876,6 +876,7 @@ ul { list-style: none; }
 
 .diary-note__social--channel { background: var(--lilac); color: var(--plum); }
 .diary-note__social--vk { background: var(--blush); color: var(--plum); }
+.diary-note__social--link { background: var(--sand); color: var(--charcoal); }
 
 .diary-social-strip {
   display: grid;

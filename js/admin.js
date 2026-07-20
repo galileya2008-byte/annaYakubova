@@ -202,13 +202,16 @@ function renderEntriesList() {
   list.innerHTML = entries
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .map((e) => {
-      const social = SITE_CONFIG.social[e.social]?.label || e.social;
+      const label = TYPE_LABELS[e.type] || e.type;
+      const linkPreview = e.link
+        ? e.link.replace(/^https?:\/\//, '').slice(0, 40)
+        : 'без ссылки';
       return `
         <article class="admin-entry">
           <div class="admin-entry__main">
-            <span class="admin-entry__badge admin-entry__badge--${e.type}">${TYPE_LABELS[e.type] || e.type}</span>
+            <span class="admin-entry__badge admin-entry__badge--${e.type}">${label}</span>
             <h4 class="admin-entry__title">${escapeHtml(e.topic || e.text.slice(0, 40))}</h4>
-            <p class="admin-entry__meta">${social} · ${formatDate(e.date)}</p>
+            <p class="admin-entry__meta">${escapeHtml(linkPreview)} · ${formatDate(e.date)}</p>
           </div>
           <div class="admin-entry__actions">
             <button type="button" class="admin-btn admin-btn--edit" data-id="${escapeAttr(e.id)}">Изменить</button>
@@ -237,7 +240,8 @@ async function handleSubmit(e) {
     type: document.getElementById('entry-type').value,
     topic: document.getElementById('entry-topic').value.trim(),
     text: document.getElementById('entry-text').value.trim(),
-    social: document.getElementById('entry-social').value,
+    link: document.getElementById('entry-link').value.trim(),
+    linkLabel: document.getElementById('entry-link-label').value.trim(),
     date: document.getElementById('entry-date').value,
   };
 
@@ -245,6 +249,13 @@ async function handleSubmit(e) {
     showToast('Введите текст записи', 'error');
     return;
   }
+
+  if (!entry.link) {
+    showToast('Укажите ссылку на пост', 'error');
+    return;
+  }
+
+  if (!entry.linkLabel) delete entry.linkLabel;
 
   if (id) {
     const idx = entries.findIndex((item) => item.id === id);
@@ -268,7 +279,8 @@ function editEntry(id) {
   document.getElementById('entry-type').value = entry.type || 'quote';
   document.getElementById('entry-topic').value = entry.topic || '';
   document.getElementById('entry-text').value = entry.text || '';
-  document.getElementById('entry-social').value = entry.social || 'telegram';
+  document.getElementById('entry-link').value = entry.link || '';
+  document.getElementById('entry-link-label').value = entry.linkLabel || '';
   document.getElementById('entry-date').value = entry.date;
 
   document.querySelectorAll('[data-type]').forEach((btn) => {

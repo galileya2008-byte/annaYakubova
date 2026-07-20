@@ -60,14 +60,18 @@ function renderDiary() {
   }
 
   empty.style.display = 'none';
-  grid.innerHTML = sorted.map(renderNote).join('');
+  grid.innerHTML = sorted
+    .filter((e) => e.link)
+    .map(renderNote)
+    .join('');
 }
 
 function renderNote(entry) {
-  const social = getSocial(entry);
   const typeLabel = TYPE_LABELS[entry.type] || entry.type;
   const date = formatDate(entry.date);
   const isQuote = entry.type === 'quote';
+  const platform = detectPlatform(entry.link);
+  const linkLabel = entry.linkLabel || 'Перейти';
 
   const topMeta = isQuote && entry.topic
     ? `<span class="diary-note__topic">${escapeHtml(entry.topic)}</span>`
@@ -79,7 +83,7 @@ function renderNote(entry) {
        <p class="diary-note__text">${escapeHtml(entry.text)}</p>`;
 
   return `
-    <a href="${escapeAttr(social.url)}" class="diary-note diary-note--${entry.type}" target="_blank" rel="noopener noreferrer">
+    <a href="${escapeAttr(entry.link)}" class="diary-note diary-note--${entry.type}" target="_blank" rel="noopener noreferrer">
       <div class="diary-note__top">
         <span class="diary-note__type">${typeLabel}</span>
         ${topMeta}
@@ -88,26 +92,30 @@ function renderNote(entry) {
       <footer class="diary-note__footer">
         <time datetime="${escapeAttr(entry.date)}">${date}</time>
         <span class="diary-note__link">
-          <span class="diary-note__social diary-note__social--${entry.social || 'telegram'}">${social.label}</span>
-          ${social.action} →
+          <span class="diary-note__social diary-note__social--${platform}">${platformLabel(platform)}</span>
+          ${escapeHtml(linkLabel)} →
         </span>
       </footer>
     </a>
   `;
 }
 
-function getSocial(entry) {
-  const key = entry.social || 'telegram';
-  const fromConfig = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.social?.[key];
-  if (fromConfig) return fromConfig;
-  if (entry.link) {
-    return { label: 'Ссылка', action: 'Перейти', url: entry.link };
-  }
-  return SITE_CONFIG?.social?.telegram || {
-    label: 'Telegram',
-    action: 'Перейти',
-    url: 'https://t.me/anna_yakubova79',
+function detectPlatform(url) {
+  if (!url) return 'link';
+  if (url.includes('vk.ru') || url.includes('vk.com')) return 'vk';
+  if (url.includes('t.me/madam79kotineiro')) return 'channel';
+  if (url.includes('t.me/')) return 'telegram';
+  return 'link';
+}
+
+function platformLabel(platform) {
+  const labels = {
+    telegram: 'Telegram',
+    channel: 'Канал',
+    vk: 'ВКонтакте',
+    link: 'Ссылка',
   };
+  return labels[platform] || 'Ссылка';
 }
 
 function formatDate(dateStr) {
