@@ -1104,6 +1104,100 @@ ul { list-style: none; }
   margin-bottom: 1.5rem;
 }
 
+/* ===== Feedback Form ===== */
+.feedback-card {
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(184, 196, 168, 0.35);
+  box-shadow: var(--shadow);
+}
+
+.feedback-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.feedback-form label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--slate);
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+
+.label-hint {
+  font-weight: 300;
+  color: var(--taupe);
+}
+
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--sage);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  background: var(--mint);
+  color: var(--charcoal);
+  transition: border-color 0.2s;
+}
+
+.feedback-form input:focus,
+.feedback-form select:focus,
+.feedback-form textarea:focus {
+  outline: none;
+  border-color: var(--forest);
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.feedback-form__submit {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.form-status {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-status--success {
+  background: var(--pistachio);
+  color: var(--forest);
+}
+
+.form-status--error {
+  background: var(--blush);
+  color: var(--plum);
+}
+
+.feedback-fallback {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--sage);
+  text-align: center;
+}
+
+.feedback-fallback p {
+  color: var(--taupe);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.feedback-note {
+  margin-top: 1.25rem;
+  font-size: 0.78rem;
+  color: var(--taupe);
+  text-align: center;
+}
+
 /* ===== Quiz Hub ===== */
 .quiz-hub {
   display: grid;

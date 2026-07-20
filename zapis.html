@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Запись на консультацию к Анне Якубовой — Матрица Судьбы, нейрографика, интегративный подход.">
+  <title>Записаться — Анна Якубова</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__name">Анна Якубова</span>
+        <span class="logo__tagline">Путь к гармонии</span>
+      </a>
+      <button class="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="matrica-sudby.html" class="nav__link">Матрица Судьбы</a>
+        <a href="neyrografika.html" class="nav__link">Нейрографика</a>
+        <a href="integrativny-podhod.html" class="nav__link">Интегративный подход</a>
+        <a href="dnevnik.html" class="nav__link">Личный дневник</a>
+        <a href="quiz.html" class="nav__link nav__link--cta">Квизы</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero--compact">
+      <div class="page-hero__bg"></div>
+      <div class="container reveal">
+        <p class="page-hero__breadcrumb">
+          <a href="index.html">Главная</a> / Записаться
+        </p>
+        <h1 class="page-hero__title">Записаться на консультацию</h1>
+        <p class="page-hero__desc">
+          Оставьте заявку — Анна получит сообщение в Telegram и свяжется с вами.
+        </p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container container--narrow reveal">
+        <div class="feedback-card">
+          <form class="feedback-form" id="feedback-form">
+            <div class="form-group">
+              <label for="form-service">Направление</label>
+              <select id="form-service" name="service" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="form-name">Ваше имя</label>
+              <input type="text" id="form-name" name="name" required placeholder="Как к вам обращаться">
+            </div>
+
+            <div class="form-group">
+              <label for="form-contact">Telegram или телефон</label>
+              <input type="text" id="form-contact" name="contact" required placeholder="@username или +7...">
+            </div>
+
+            <div class="form-group">
+              <label for="form-message">Сообщение <span class="label-hint">(необязательно)</span></label>
+              <textarea id="form-message" name="message" rows="4" placeholder="Кратко опишите ваш запрос или удобное время"></textarea>
+            </div>
+
+            <p class="form-status" id="form-status" style="display: none;" role="status"></p>
+
+            <button type="submit" class="btn btn--primary feedback-form__submit" id="form-submit">
+              Отправить заявку
+            </button>
+          </form>
+
+          <div class="feedback-fallback" id="form-fallback" style="display: none;">
+            <p>Или напишите напрямую:</p>
+            <a href="https://t.me/anna_yakubova79" class="btn btn--accent" target="_blank" rel="noopener noreferrer">
+              Telegram — @anna_yakubova79
+            </a>
+          </div>
+
+          <p class="feedback-note">
+            Нажимая «Отправить», вы соглашаетесь на обработку данных для связи с вами.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="logo">
+            <span class="logo__name">Анна Якубова</span>
+            <span class="logo__tagline">Путь к гармонии</span>
+          </div>
+          <p class="footer__desc">
+            Матрица Судьбы · Нейрографика · Интегративный подход.
+          </p>
+        </div>
+        <div>
+          <h4>Направления</h4>
+          <ul>
+            <li><a href="matrica-sudby.html">Матрица Судьбы</a></li>
+            <li><a href="neyrografika.html">Нейрографика</a></li>
+            <li><a href="integrativny-podhod.html">Интегративный подход</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Разделы</h4>
+          <ul>
+            <li><a href="dnevnik.html">Личный дневник</a></li>
+            <li><a href="quiz.html">Квизы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Связаться</h4>
+          <ul>
+            <li><a href="https://t.me/anna_yakubova79" target="_blank" rel="noopener noreferrer">Telegram — @anna_yakubova79</a></li>
+            <li><a href="https://t.me/madam79kotineiro" target="_blank" rel="noopener noreferrer">Канал в Telegram</a></li>
+            <li><a href="https://vk.ru/club236251530" target="_blank" rel="noopener noreferrer">Группа ВКонтакте</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Анна Якубова<a href="admin.html" class="footer__admin-link" title="Вход">·</a></span>
+        <div class="social-links">
+          <a href="https://t.me/anna_yakubova79" class="social-link" title="Telegram" target="_blank" rel="noopener noreferrer">TG</a>
+          <a href="https://t.me/madam79kotineiro" class="social-link social-link--channel" title="Канал" target="_blank" rel="noopener noreferrer">Канал</a>
+          <a href="https://vk.ru/club236251530" class="social-link" title="VK" target="_blank" rel="noopener noreferrer">VK</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/feedback.js"></script>
+</body>
+</html>
