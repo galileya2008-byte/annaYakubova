@@ -1,7 +1,6 @@
-const CATEGORY_LABELS = {
-  masterclass: 'Мастер-класс',
-  news: 'Новость',
-  article: 'Статья',
+const TYPE_LABELS = {
+  quote: 'Цитата',
+  topic: 'Тема',
 };
 
 let allEntries = [];
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadDiary() {
   try {
-    const res = await fetch('data/diary.json');
+    const res = await fetch(`data/diary.json?t=${Date.now()}`);
     if (!res.ok) throw new Error('Not found');
     const data = await res.json();
     allEntries = data.entries || [];
@@ -48,7 +47,7 @@ function renderDiary() {
   const filtered =
     currentFilter === 'all'
       ? allEntries
-      : allEntries.filter((e) => e.category === currentFilter);
+      : allEntries.filter((e) => e.type === currentFilter);
 
   const sorted = [...filtered].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
@@ -61,39 +60,61 @@ function renderDiary() {
   }
 
   empty.style.display = 'none';
-  grid.innerHTML = sorted.map(renderCard).join('');
+  grid.innerHTML = sorted.map(renderNote).join('');
 }
 
-function renderCard(entry) {
-  const label = CATEGORY_LABELS[entry.category] || entry.category;
+function renderNote(entry) {
+  const social = getSocial(entry);
+  const typeLabel = TYPE_LABELS[entry.type] || entry.type;
   const date = formatDate(entry.date);
-  const linkStart = entry.link
-    ? `<a href="${escapeAttr(entry.link)}" class="diary-card" ${isExternal(entry.link) ? 'target="_blank" rel="noopener noreferrer"' : ''}>`
-    : '<article class="diary-card">';
-  const linkEnd = entry.link ? '</a>' : '</article>';
+  const isQuote = entry.type === 'quote';
+
+  const topMeta = isQuote && entry.topic
+    ? `<span class="diary-note__topic">${escapeHtml(entry.topic)}</span>`
+    : '';
+
+  const body = isQuote
+    ? `<blockquote class="diary-note__quote">«${escapeHtml(entry.text)}»</blockquote>`
+    : `<h3 class="diary-note__title">${escapeHtml(entry.topic)}</h3>
+       <p class="diary-note__text">${escapeHtml(entry.text)}</p>`;
 
   return `
-    ${linkStart}
-      <span class="diary-card__category">${label}</span>
-      <time class="diary-card__date" datetime="${escapeAttr(entry.date)}">${date}</time>
-      <h3 class="diary-card__title">${escapeHtml(entry.title)}</h3>
-      <p class="diary-card__excerpt">${escapeHtml(entry.excerpt)}</p>
-      ${entry.link ? '<span class="diary-card__more">Читать →</span>' : ''}
-    ${linkEnd}
+    <a href="${escapeAttr(social.url)}" class="diary-note diary-note--${entry.type}" target="_blank" rel="noopener noreferrer">
+      <div class="diary-note__top">
+        <span class="diary-note__type">${typeLabel}</span>
+        ${topMeta}
+      </div>
+      ${body}
+      <footer class="diary-note__footer">
+        <time datetime="${escapeAttr(entry.date)}">${date}</time>
+        <span class="diary-note__link">
+          <span class="diary-note__social diary-note__social--${entry.social || 'telegram'}">${social.label}</span>
+          ${social.action} →
+        </span>
+      </footer>
+    </a>
   `;
 }
 
-function formatDate(dateStr) {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+function getSocial(entry) {
+  const key = entry.social || 'telegram';
+  const fromConfig = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.social?.[key];
+  if (fromConfig) return fromConfig;
+  if (entry.link) {
+    return { label: 'Ссылка', action: 'Перейти', url: entry.link };
+  }
+  return SITE_CONFIG?.social?.telegram || {
+    label: 'Telegram',
+    action: 'Перейти',
+    url: 'https://t.me/anna_yakubova79',
+  };
 }
 
-function isExternal(url) {
-  return url.startsWith('http');
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+  });
 }
 
 function escapeHtml(str) {
