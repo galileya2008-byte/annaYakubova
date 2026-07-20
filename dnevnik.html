@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Личный дневник Анны Якубовой — мастер-классы, новости и статьи.">
+  <title>Личный дневник — Анна Якубова</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">
+        <span class="logo__name">Анна Якубова</span>
+        <span class="logo__tagline">Путь к гармонии</span>
+      </a>
+      <button class="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav">
+        <a href="index.html" class="nav__link">Главная</a>
+        <a href="matrica-sudby.html" class="nav__link">Матрица Судьбы</a>
+        <a href="neyrografika.html" class="nav__link">Нейрографика</a>
+        <a href="integrativny-podhod.html" class="nav__link">Интегративный подход</a>
+        <a href="dnevnik.html" class="nav__link">Личный дневник</a>
+        <a href="quiz.html" class="nav__link nav__link--cta">Квизы</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="page-hero__bg"></div>
+      <div class="container reveal">
+        <p class="page-hero__breadcrumb">
+          <a href="index.html">Главная</a> / Личный дневник
+        </p>
+        <h1 class="page-hero__title">Личный дневник</h1>
+        <p class="page-hero__desc">
+          Мастер-классы, новости и размышления — живой поток
+          из пространства Анны Якубовой.
+        </p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container reveal">
+        <div class="diary-filters">
+          <button class="diary-filter diary-filter--active" data-filter="all">Все записи</button>
+          <button class="diary-filter" data-filter="masterclass">Мастер-классы</button>
+          <button class="diary-filter" data-filter="news">Новости</button>
+          <button class="diary-filter" data-filter="article">Статьи</button>
+        </div>
+
+        <div class="diary-grid" id="diary-grid"></div>
+
+        <div class="diary-empty" id="diary-empty" style="display: none;">
+          Записи пока не добавлены.
+        </div>
+
+        <div class="admin-hint">
+          <h4>Для Анны: как добавить запись</h4>
+          <p>
+            Войдите в админку через едва заметную точку «·» в футере сайта (внизу любой страницы).
+            Либо отредактируйте файл <code>data/diary.json</code> вручную.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="logo">
+            <span class="logo__name">Анна Якубова</span>
+            <span class="logo__tagline">Путь к гармонии</span>
+          </div>
+          <p class="footer__desc">
+            Матрица Судьбы · Нейрографика · Интегративный подход.
+          </p>
+        </div>
+        <div>
+          <h4>Направления</h4>
+          <ul>
+            <li><a href="matrica-sudby.html">Матрица Судьбы</a></li>
+            <li><a href="neyrografika.html">Нейрографика</a></li>
+            <li><a href="integrativny-podhod.html">Интегративный подход</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Разделы</h4>
+          <ul>
+            <li><a href="dnevnik.html">Личный дневник</a></li>
+            <li><a href="quiz.html">Квизы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Связаться</h4>
+          <ul>
+            <li><a href="https://t.me/anna_yakubova79" target="_blank" rel="noopener noreferrer">Telegram — @anna_yakubova79</a></li>
+            <li><a href="https://t.me/madam79kotineiro" target="_blank" rel="noopener noreferrer">Канал в Telegram</a></li>
+            <li><a href="https://vk.ru/club236251530" target="_blank" rel="noopener noreferrer">Группа ВКонтакте</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Анна Якубова<a href="admin.html" class="footer__admin-link" title="Вход">·</a></span>
+        <div class="social-links">
+          <a href="https://t.me/anna_yakubova79" class="social-link" title="Telegram — @anna_yakubova79" target="_blank" rel="noopener noreferrer">TG</a>
+          <a href="https://t.me/madam79kotineiro" class="social-link social-link--channel" title="Telegram-канал" target="_blank" rel="noopener noreferrer">Канал</a>
+          <a href="https://vk.ru/club236251530" class="social-link" title="Группа ВКонтакте" target="_blank" rel="noopener noreferrer">VK</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/diary.js"></script>
+</body>
+</html>
