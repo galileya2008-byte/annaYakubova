@@ -680,6 +680,95 @@ ul { list-style: none; }
   color: var(--olive);
 }
 
+.certificate-section {
+  padding: 5rem 0;
+}
+
+.certificate-showcase--gallery {
+  margin: 0;
+  padding: 3rem 2.5rem 2.5rem;
+  background: linear-gradient(
+    165deg,
+    var(--ivory) 0%,
+    rgba(232, 212, 208, 0.25) 35%,
+    rgba(216, 207, 232, 0.22) 70%,
+    var(--cream) 100%
+  );
+}
+
+.certificate-showcase--gallery h2 {
+  margin-bottom: 0.75rem;
+}
+
+.certificate-showcase--gallery .ornament {
+  margin-bottom: 0.75rem;
+}
+
+.certificate-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+  align-items: start;
+}
+
+.certificate-gallery__item {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s ease;
+}
+
+.certificate-gallery__item:hover {
+  transform: translateY(-6px);
+}
+
+.certificate-gallery .certificate-frame {
+  margin: 0;
+  max-width: none;
+}
+
+.certificate-frame__outer--neuro {
+  background: linear-gradient(
+    145deg,
+    var(--blush) 0%,
+    var(--lilac) 42%,
+    rgba(196, 168, 180, 0.85) 100%
+  );
+}
+
+.certificate-gallery__item:nth-child(2) .certificate-frame__outer--neuro {
+  background: linear-gradient(
+    145deg,
+    var(--lilac) 0%,
+    var(--sage) 50%,
+    var(--mauve) 100%
+  );
+}
+
+.certificate-gallery__item:nth-child(3) .certificate-frame__outer--neuro {
+  background: linear-gradient(
+    145deg,
+    rgba(216, 207, 232, 0.95) 0%,
+    var(--blush) 55%,
+    var(--plum) 100%
+  );
+}
+
+.certificate-frame__caption strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--evergreen);
+  margin-bottom: 0.25rem;
+}
+
+.certificate-frame__caption span {
+  display: block;
+  font-size: 0.8rem;
+}
+
 .info-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1633,6 +1722,8 @@ ul { list-style: none; }
   .quiz-hub { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .levels-strip { grid-template-columns: repeat(2, 1fr); }
+  .certificate-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 720px; margin-inline: auto; }
+  .certificate-gallery__item:last-child { grid-column: 1 / -1; max-width: 340px; margin-inline: auto; width: 100%; }
 }
 
 @media (max-width: 768px) {
@@ -1666,6 +1757,9 @@ ul { list-style: none; }
   .footer__grid { grid-template-columns: 1fr; }
   .footer__bottom { flex-direction: column; gap: 1rem; text-align: center; }
   .levels-strip { grid-template-columns: 1fr 1fr; }
+  .certificate-showcase--gallery { padding: 2.25rem 1.25rem 2rem; }
+  .certificate-gallery { grid-template-columns: 1fr; max-width: 320px; margin-inline: auto; }
+  .certificate-gallery__item:last-child { grid-column: auto; max-width: none; }
   .quiz-container { padding: 1.75rem 1.25rem; }
 }
 
