@@ -2,7 +2,42 @@ document.addEventListener('DOMContentLoaded', () => {
   initBurger();
   initReveal();
   highlightCurrentNav();
+  initLegalInfo();
 });
+
+function getLegalInfo() {
+  if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.legal) {
+    return SITE_CONFIG.legal;
+  }
+  return {
+    status: 'Самозанятая',
+    name: 'Якубова Анна Геннадьевна',
+    city: 'Москва',
+    inn: '503198988884',
+  };
+}
+
+function formatLegalLine(legal) {
+  return `${legal.status} ${legal.name} · г. ${legal.city} · ИНН ${legal.inn}`;
+}
+
+function initLegalInfo() {
+  const legal = getLegalInfo();
+  const line = formatLegalLine(legal);
+
+  const brand = document.querySelector('.footer__brand');
+  if (brand && !brand.querySelector('.footer__legal')) {
+    const footerLegal = document.createElement('p');
+    footerLegal.className = 'footer__legal';
+    footerLegal.textContent = line;
+    brand.appendChild(footerLegal);
+  }
+
+  const formLegal = document.getElementById('feedback-legal');
+  if (formLegal) {
+    formLegal.textContent = `Исполнитель услуг — ${line}`;
+  }
+}
 
 function initBurger() {
   const burger = document.querySelector('.burger');

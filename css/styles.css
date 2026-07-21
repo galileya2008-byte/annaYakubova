@@ -1404,6 +1404,14 @@ ul { list-style: none; }
   text-align: center;
 }
 
+.feedback-legal {
+  margin-top: 0.65rem;
+  font-size: 0.75rem;
+  color: var(--taupe);
+  text-align: center;
+  line-height: 1.5;
+}
+
 /* ===== Quiz Hub ===== */
 .quiz-hub {
   display: grid;
@@ -1674,6 +1682,13 @@ ul { list-style: none; }
   margin-top: 0.75rem;
   line-height: 1.6;
   color: rgba(250, 248, 244, 0.65);
+}
+
+.footer__legal {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin-top: 1rem;
+  color: rgba(250, 248, 244, 0.5);
 }
 
 .footer h4 {
