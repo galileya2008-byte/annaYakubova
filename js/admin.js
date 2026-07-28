@@ -1,6 +1,7 @@
 const ADMIN_PASSWORD = 'anna_anna';
 const AUTH_KEY = 'anna_admin_auth';
 const TOKEN_KEY = 'anna_github_token';
+const TOKEN_REMEMBER_KEY = 'anna_github_token_remember';
 
 const TYPE_LABELS = {
   quote: 'Цитата',
@@ -14,9 +15,54 @@ document.addEventListener('DOMContentLoaded', () => {
   initAuth();
 });
 
+function isTokenRemembered() {
+  return localStorage.getItem(TOKEN_REMEMBER_KEY) === 'true';
+}
+
+function getToken() {
+  if (isTokenRemembered()) {
+    return localStorage.getItem(TOKEN_KEY) || '';
+  }
+  return sessionStorage.getItem(TOKEN_KEY) || '';
+}
+
+function saveTokenValue(token, remember) {
+  sessionStorage.removeItem(TOKEN_KEY);
+
+  if (remember && token) {
+    localStorage.setItem(TOKEN_REMEMBER_KEY, 'true');
+    localStorage.setItem(TOKEN_KEY, token);
+    return;
+  }
+
+  localStorage.removeItem(TOKEN_REMEMBER_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+  if (token) sessionStorage.setItem(TOKEN_KEY, token);
+}
+
+function clearStoredToken() {
+  sessionStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(TOKEN_REMEMBER_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+}
+
 function initAuth() {
   const loginForm = document.getElementById('login-form');
   const loginScreen = document.getElementById('admin-login');
+  const tokenInput = document.getElementById('github-token');
+  const rememberCheckbox = document.getElementById('remember-token');
+
+  if (rememberCheckbox) {
+    rememberCheckbox.checked = isTokenRemembered() || rememberCheckbox.checked;
+  }
+
+  if (tokenInput && isTokenRemembered()) {
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+    if (savedToken) {
+      tokenInput.value = savedToken;
+      tokenInput.placeholder = 'Токен сохранён на этом устройстве';
+    }
+  }
 
   if (sessionStorage.getItem(AUTH_KEY) === 'true') {
     showAdminPanel();
@@ -26,7 +72,9 @@ function initAuth() {
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const password = document.getElementById('admin-password').value;
-    const token = document.getElementById('github-token').value.trim();
+    const tokenFromInput = document.getElementById('github-token').value.trim();
+    const remember = rememberCheckbox?.checked ?? true;
+    const token = tokenFromInput || getToken();
     const error = document.getElementById('login-error');
 
     if (password !== ADMIN_PASSWORD) {
@@ -37,7 +85,7 @@ function initAuth() {
     }
 
     sessionStorage.setItem(AUTH_KEY, 'true');
-    if (token) sessionStorage.setItem(TOKEN_KEY, token);
+    if (token) saveTokenValue(token, remember);
     error.classList.remove('is-visible');
     showAdminPanel();
   });
@@ -56,9 +104,11 @@ async function initAdmin() {
   document.getElementById('entry-form').addEventListener('submit', handleSubmit);
   document.getElementById('cancel-btn').addEventListener('click', resetForm);
   document.getElementById('save-token-btn').addEventListener('click', saveToken);
+  document.getElementById('forget-token-btn').addEventListener('click', forgetToken);
   document.getElementById('entry-date').valueAsDate = new Date();
   updateTypeHints('quote', document.getElementById('topic-hint'), document.getElementById('text-hint'));
   updatePublishStatus();
+  updateTokenCardDesc();
 }
 
 function initTypeToggle() {
@@ -86,25 +136,67 @@ function updateTypeHints(type, topicHint, textHint) {
   }
 }
 
-function getToken() {
-  return sessionStorage.getItem(TOKEN_KEY) || '';
-}
-
 function initTokenPanel() {
   const input = document.getElementById('token-input');
+  const rememberCheckbox = document.getElementById('token-remember');
   const token = getToken();
-  if (input && token) input.value = token;
+
+  if (rememberCheckbox) {
+    rememberCheckbox.checked = isTokenRemembered();
+  }
+
+  if (input && token) {
+    input.value = token;
+    input.placeholder = isTokenRemembered()
+      ? 'Токен сохранён на этом устройстве'
+      : 'Вставьте токен';
+  }
+}
+
+function updateTokenCardDesc() {
+  const desc = document.getElementById('token-card-desc');
+  if (!desc) return;
+
+  desc.textContent = isTokenRemembered() && getToken()
+    ? 'Токен сохранён на этом устройстве — достаточно вводить только пароль.'
+    : 'Нужен для автопубликации на сайте.';
 }
 
 function saveToken() {
   const token = document.getElementById('token-input').value.trim();
+  const remember = document.getElementById('token-remember')?.checked ?? true;
+
   if (!token) {
     showToast('Вставьте GitHub-токен', 'error');
     return;
   }
-  sessionStorage.setItem(TOKEN_KEY, token);
-  showToast('Токен сохранён', 'success');
+
+  saveTokenValue(token, remember);
+  showToast(
+    remember ? 'Токен сохранён на устройстве' : 'Токен сохранён до закрытия вкладки',
+    'success'
+  );
   updatePublishStatus();
+  updateTokenCardDesc();
+}
+
+function forgetToken() {
+  if (!confirm('Удалить сохранённый токен с этого устройства?')) return;
+
+  clearStoredToken();
+
+  const input = document.getElementById('token-input');
+  if (input) {
+    input.value = '';
+    input.placeholder = 'Вставьте токен';
+  }
+
+  const rememberCheckbox = document.getElementById('token-remember');
+  if (rememberCheckbox) rememberCheckbox.checked = false;
+
+  updatePublishStatus();
+  updateTokenCardDesc();
+  showToast('Токен удалён с этого устройства', 'info');
 }
 
 async function githubGetFile(path, token) {

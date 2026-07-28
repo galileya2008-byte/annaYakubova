@@ -38,9 +38,13 @@
           <div class="form-group">
             <label for="github-token">GitHub-токен <span class="label-hint">(для публикации)</span></label>
             <input type="password" id="github-token" autocomplete="off" placeholder="ghp_... или github_pat_...">
+            <label class="form-check">
+              <input type="checkbox" id="remember-token" checked>
+              <span>Запомнить токен на этом устройстве</span>
+            </label>
             <p class="field-hint">
               <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener noreferrer">Создать токен</a>
-              с правом «Contents: Read and write».
+              с правом «Contents: Read and write». Вводится один раз — дальше только пароль.
             </p>
           </div>
           <button type="submit" class="btn btn--primary admin-login__submit">Войти</button>
@@ -65,11 +69,16 @@
         <section class="admin-token-card">
           <div class="admin-token-card__text">
             <h3>GitHub-токен</h3>
-            <p>Нужен для автопубликации на сайте. Один раз за сессию.</p>
+            <p id="token-card-desc">Нужен для автопубликации на сайте.</p>
           </div>
           <div class="admin-token-card__form">
             <input type="password" id="token-input" placeholder="Вставьте токен" autocomplete="off">
+            <label class="form-check form-check--inline">
+              <input type="checkbox" id="token-remember" checked>
+              <span>Запомнить на устройстве</span>
+            </label>
             <button type="button" class="btn btn--secondary" id="save-token-btn">Сохранить</button>
+            <button type="button" class="btn btn--ghost" id="forget-token-btn">Забыть токен</button>
           </div>
         </section>
 
