@@ -481,8 +481,9 @@ ul { list-style: none; }
 
 .about-strip__visual img {
   width: 100%;
-  aspect-ratio: 4/5;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
+  object-position: center top;
 }
 
 .about-strip__text h2 { margin-bottom: 1.25rem; }
