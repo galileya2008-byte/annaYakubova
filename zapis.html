@@ -72,6 +72,14 @@
 
             <p class="form-status" id="form-status" style="display: none;" role="status"></p>
 
+            <label class="form-check form-check--consent">
+              <input type="checkbox" id="form-consent" name="consent" required>
+              <span>
+                Я даю согласие на обработку персональных данных в соответствии с
+                <a href="politika-konfidencialnosti.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.
+              </span>
+            </label>
+
             <button type="submit" class="btn btn--primary feedback-form__submit" id="form-submit">
               Отправить заявку
             </button>
@@ -85,7 +93,7 @@
           </div>
 
           <p class="feedback-note">
-            Нажимая «Отправить», вы соглашаетесь на обработку данных для связи с вами.
+            Отправляя заявку, вы подтверждаете согласие на обработку указанных данных для связи с вами.
           </p>
           <p class="feedback-legal" id="feedback-legal"></p>
         </div>
@@ -141,6 +149,7 @@
   </footer>
 
   <script src="js/config.js"></script>
+  <script src="js/cookies.js"></script>
   <script src="js/main.js"></script>
   <script src="js/feedback.js"></script>
 </body>

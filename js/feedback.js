@@ -52,6 +52,12 @@ function initForm() {
       return;
     }
 
+    const consent = document.getElementById('form-consent');
+    if (consent && !consent.checked) {
+      showFormStatus('Необходимо согласие на обработку персональных данных', 'error');
+      return;
+    }
+
     setFormLoading(true);
     showFormStatus('', '');
 

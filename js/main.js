@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   highlightCurrentNav();
   initLegalInfo();
+  initFooterLegalLinks();
 });
 
 function getLegalInfo() {
@@ -36,6 +37,32 @@ function initLegalInfo() {
   const formLegal = document.getElementById('feedback-legal');
   if (formLegal) {
     formLegal.textContent = `Исполнитель услуг — ${line}`;
+  }
+
+  const operator = document.getElementById('legal-operator');
+  if (operator) {
+    operator.textContent = `${legal.status} ${legal.name}, г. ${legal.city}, ИНН ${legal.inn}.`;
+  }
+}
+
+function initFooterLegalLinks() {
+  const bottom = document.querySelector('.footer__bottom');
+  if (!bottom || bottom.querySelector('.footer__docs')) return;
+
+  const docs = document.createElement('nav');
+  docs.className = 'footer__docs';
+  docs.setAttribute('aria-label', 'Юридические документы');
+  docs.innerHTML = `
+    <a href="politika-konfidencialnosti.html">Политика конфиденциальности</a>
+    <span class="footer__docs-sep" aria-hidden="true">·</span>
+    <a href="politika-cookie.html">Cookie</a>
+  `;
+
+  const copyright = bottom.querySelector('span');
+  if (copyright) {
+    bottom.insertBefore(docs, copyright);
+  } else {
+    bottom.prepend(docs);
   }
 }
 

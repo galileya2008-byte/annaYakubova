@@ -1413,6 +1413,176 @@ ul { list-style: none; }
   line-height: 1.5;
 }
 
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: var(--slate);
+  cursor: pointer;
+  text-align: left;
+}
+
+.form-check input {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.2rem;
+  accent-color: var(--forest);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.form-check a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form-check--consent {
+  margin: 1.25rem 0 1rem;
+  line-height: 1.55;
+}
+
+.btn--sm {
+  padding: 0.55rem 1.15rem;
+  font-size: 0.82rem;
+}
+
+/* ===== Cookie banner ===== */
+body.cookie-banner-visible {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  background: rgba(42, 46, 44, 0.96);
+  color: rgba(250, 248, 244, 0.92);
+  padding: 1.1rem 0 calc(1.1rem + env(safe-area-inset-bottom, 0));
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.cookie-banner__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cookie-banner__text {
+  flex: 1 1 280px;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: rgba(250, 248, 244, 0.88);
+}
+
+.cookie-banner__text a {
+  color: var(--pistachio);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cookie-banner__text a:hover {
+  color: var(--ivory);
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ===== Legal documents ===== */
+.legal-doc {
+  padding-bottom: 3rem;
+}
+
+.legal-doc__updated {
+  font-size: 0.85rem;
+  color: var(--taupe);
+  margin-bottom: 2rem;
+}
+
+.legal-doc h2 {
+  font-size: 1.35rem;
+  margin: 2rem 0 0.85rem;
+}
+
+.legal-doc h2:first-of-type {
+  margin-top: 0;
+}
+
+.legal-doc p,
+.legal-doc li {
+  color: var(--slate);
+}
+
+.legal-doc ul {
+  margin: 0.75rem 0 1rem 1.25rem;
+  list-style: disc;
+}
+
+.legal-doc li {
+  margin-bottom: 0.4rem;
+}
+
+.legal-doc__back {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(184, 196, 168, 0.35);
+  font-size: 0.9rem;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.88rem;
+}
+
+.legal-table th,
+.legal-table td {
+  border: 1px solid rgba(184, 196, 168, 0.45);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-table th {
+  background: var(--cream);
+  color: var(--evergreen);
+  font-weight: 500;
+}
+
+.legal-table code {
+  font-size: 0.82em;
+  word-break: break-all;
+}
+
+.footer__docs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+}
+
+.footer__docs a {
+  color: rgba(250, 248, 244, 0.65);
+}
+
+.footer__docs a:hover {
+  color: var(--ivory);
+}
+
+.footer__docs-sep {
+  color: rgba(250, 248, 244, 0.35);
+}
+
 /* ===== Quiz Hub ===== */
 .quiz-hub {
   display: grid;
@@ -1658,6 +1828,16 @@ ul { list-style: none; }
   margin-top: 1rem;
 }
 
+.quiz-embed-legal {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--taupe);
+  margin-top: 0.75rem;
+  line-height: 1.5;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
 /* ===== Footer ===== */
 .footer {
   background: var(--evergreen);
@@ -1706,8 +1886,10 @@ ul { list-style: none; }
 
 .footer__bottom {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(250, 248, 244, 0.12);
   font-size: 0.82rem;
@@ -1814,6 +1996,7 @@ ul { list-style: none; }
   .hero__scroll { display: none; }
   .footer__grid { grid-template-columns: 1fr; }
   .footer__bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .footer__docs { justify-content: center; }
   .levels-strip { grid-template-columns: 1fr 1fr; }
   .certificate-showcase--gallery { padding: 2.25rem 1.25rem 2rem; }
   .certificate-gallery { grid-template-columns: 1fr; max-width: 320px; margin-inline: auto; }
