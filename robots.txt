@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin.html
+Disallow: /js/admin.js
+
+Sitemap: https://galileya2008-byte.github.io/annaYakubova/sitemap.xml

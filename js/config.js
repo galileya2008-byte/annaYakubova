@@ -4,6 +4,14 @@ const SITE_CONFIG = {
     repo: 'annaYakubova',
     diaryPath: 'data/diary.json',
   },
+  seo: {
+    siteUrl: 'https://galileya2008-byte.github.io/annaYakubova',
+    siteName: 'Анна Якубова — Путь к гармонии',
+    locale: 'ru_RU',
+    language: 'ru-RU',
+    defaultImage: 'images/anna-yakubova-expert.png',
+    twitterCard: 'summary_large_image',
+  },
   legal: {
     status: 'Самозанятая',
     name: 'Якубова Анна Геннадьевна',
