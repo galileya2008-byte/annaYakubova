@@ -5,7 +5,7 @@ const SITE_CONFIG = {
     diaryPath: 'data/diary.json',
   },
   seo: {
-    siteUrl: 'https://galileya2008-byte.github.io/annaYakubova',
+    siteUrl: 'https://anna-yakubova.ru',
     siteName: 'Анна Якубова — Путь к гармонии',
     locale: 'ru_RU',
     language: 'ru-RU',
