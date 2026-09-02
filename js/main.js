@@ -103,6 +103,12 @@ function initReveal() {
   );
 
   items.forEach((el) => observer.observe(el));
+
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.reveal--visible)').forEach((el) => {
+      el.classList.add('reveal--visible');
+    });
+  }, 2000);
 }
 
 function highlightCurrentNav() {
