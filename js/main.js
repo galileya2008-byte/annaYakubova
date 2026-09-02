@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initBurger();
   initReveal();
+  initHeaderScroll();
   highlightCurrentNav();
   initLegalInfo();
   initFooterLegalLinks();
@@ -84,6 +85,18 @@ function initBurger() {
       document.body.classList.remove('menu-open');
     });
   });
+}
+
+function initHeaderScroll() {
+  const header = document.querySelector('.header');
+  if (!header) return;
+
+  const onScroll = () => {
+    header.classList.toggle('header--scrolled', window.scrollY > 24);
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 }
 
 function initReveal() {
