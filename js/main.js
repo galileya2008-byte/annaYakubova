@@ -12,7 +12,7 @@ function getLegalInfo() {
     return SITE_CONFIG.legal;
   }
   return {
-    status: 'Самозанятая',
+    status: 'Самозанятый',
     name: 'Якубова Анна Геннадьевна',
     city: 'Москва',
     inn: '503198988884',

@@ -13,7 +13,7 @@ const SITE_CONFIG = {
     twitterCard: 'summary_large_image',
   },
   legal: {
-    status: 'Самозанятая',
+    status: 'Самозанятый',
     name: 'Якубова Анна Геннадьевна',
     city: 'Москва',
     inn: '503198988884',
