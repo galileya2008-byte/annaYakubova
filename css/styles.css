@@ -609,8 +609,8 @@ ul { list-style: none; }
   content: '';
   position: absolute;
   inset: 0;
-  background: url('../images/matrica-sudby-bg.png') center center / min(520px, 88vw) no-repeat;
-  opacity: 0.28;
+  background: url('../images/matrica-sudby-bg.png') center center / min(680px, 92vw) no-repeat;
+  opacity: 0.55;
   pointer-events: none;
   z-index: 0;
 }
@@ -621,9 +621,9 @@ ul { list-style: none; }
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(248, 246, 240, 0.82) 0%,
-    rgba(248, 246, 240, 0.76) 50%,
-    rgba(248, 246, 240, 0.84) 100%
+    rgba(248, 246, 240, 0.62) 0%,
+    rgba(248, 246, 240, 0.55) 50%,
+    rgba(248, 246, 240, 0.68) 100%
   );
   pointer-events: none;
   z-index: 0;
