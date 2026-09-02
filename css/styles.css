@@ -600,6 +600,40 @@ ul { list-style: none; }
   padding: 4rem 0 5rem;
 }
 
+.content--matrix {
+  position: relative;
+  overflow: hidden;
+}
+
+.content--matrix::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../images/matrica-sudby-bg.jpg') center center / cover no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content--matrix::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 246, 240, 0.88) 0%,
+    rgba(248, 246, 240, 0.82) 50%,
+    rgba(248, 246, 240, 0.9) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content--matrix > .container {
+  position: relative;
+  z-index: 1;
+}
+
 .content--embed { padding-top: 2rem; }
 
 .content__grid {
