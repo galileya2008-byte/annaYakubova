@@ -978,18 +978,18 @@ ul { list-style: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.55rem;
+  min-width: 2rem;
   height: 1.25rem;
   margin-top: 0.1rem;
+  padding: 0 0.35rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #fff;
   background: linear-gradient(180deg, #ff4a42 0%, #e51f18 100%);
   border-radius: 7px 0 7px 0;
   box-shadow: 0 2px 5px rgba(229, 31, 24, 0.35);
-}
-
-.sidebar-sticker__icon {
-  display: block;
-  font-size: 0.68rem;
-  line-height: 1;
 }
 
 .sidebar-list li:last-child { border-bottom: none; }
