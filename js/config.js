@@ -21,6 +21,8 @@ const SITE_CONFIG = {
   form: {
     webhookUrl: '',
     telegramFallback: 'https://t.me/anna_yakubova79',
+    maxProfile: 'https://max.ru/u/f9LHodD0cOKiHUxn33v4gxrylSkSrL2RhzH1p6HbsSGW_PwYXz547XMPfik',
+    maxChannel: 'https://max.ru/channel_anna_neiroopora',
     services: {
       matrix: 'Матрица Судьбы',
       neuro: 'Нейрографика',
