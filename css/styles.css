@@ -961,8 +961,7 @@ ul { list-style: none; }
 .sidebar-list li {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.55rem;
   padding: 0.5rem 0;
   font-size: 0.9rem;
   color: var(--slate);
@@ -979,34 +978,19 @@ ul { list-style: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.15rem;
-  height: 2.15rem;
-  margin-top: -0.15rem;
-  background: linear-gradient(145deg, #ff8a3d 0%, #ff4d6d 52%, #e91e8c 100%);
-  border: 2.5px solid #fff;
-  border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
-  transform: rotate(11deg);
-  box-shadow:
-    0 2px 0 rgba(190, 45, 80, 0.45),
-    0 5px 14px rgba(255, 77, 109, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  width: 1.55rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  background: linear-gradient(180deg, #ff4a42 0%, #e51f18 100%);
+  border-radius: 7px 0 7px 0;
+  box-shadow: 0 2px 5px rgba(229, 31, 24, 0.35);
 }
 
 .sidebar-sticker__icon {
   display: block;
-  font-size: 1.05rem;
+  font-size: 0.68rem;
   line-height: 1;
-  transform: rotate(-11deg);
-  filter: drop-shadow(0 1px 1px rgba(120, 20, 40, 0.25));
 }
-
-.sidebar-list li:nth-child(2) .sidebar-sticker { transform: rotate(9deg); }
-.sidebar-list li:nth-child(4) .sidebar-sticker { transform: rotate(14deg); }
-.sidebar-list li:nth-child(5) .sidebar-sticker { transform: rotate(7deg); }
-
-.sidebar-list li:nth-child(2) .sidebar-sticker__icon { transform: rotate(-9deg); }
-.sidebar-list li:nth-child(4) .sidebar-sticker__icon { transform: rotate(-14deg); }
-.sidebar-list li:nth-child(5) .sidebar-sticker__icon { transform: rotate(-7deg); }
 
 .sidebar-list li:last-child { border-bottom: none; }
 
