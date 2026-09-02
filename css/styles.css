@@ -215,14 +215,19 @@ ul { list-style: none; }
 }
 
 .logo__tagline {
-  font-size: 0.62rem;
+  display: block;
+  max-width: 15rem;
+  font-size: 0.58rem;
   color: var(--gold);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  margin-top: 0.15rem;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-transform: none;
+  margin-top: 0.2rem;
 }
 
-.nav {
+.footer .logo__tagline {
+  max-width: 16rem;
+}
   display: flex;
   align-items: center;
   gap: 0.15rem;
@@ -2150,7 +2155,7 @@ body.cookie-banner-visible {
 }
 
 .footer .logo__name { color: var(--ivory); }
-.footer .logo__tagline { color: rgba(250, 248, 244, 0.5); }
+.footer .logo__tagline { color: rgba(250, 248, 244, 0.5); max-width: 16rem; }
 
 .footer__desc {
   font-size: 0.88rem;

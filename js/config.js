@@ -1,4 +1,4 @@
-const SITE_CONFIG = {
+﻿const SITE_CONFIG = {
   github: {
     owner: 'galileya2008-byte',
     repo: 'annaYakubova',
@@ -6,7 +6,7 @@ const SITE_CONFIG = {
   },
   seo: {
     siteUrl: 'https://anna-yakubova.ru',
-    siteName: 'Анна Якубова — Путь к гармонии',
+    siteName: 'Анна Якубова — Внутренняя опора через рисование и матрицу судьбы',
     locale: 'ru_RU',
     language: 'ru-RU',
     defaultImage: 'images/anna-yakubova-expert.png',

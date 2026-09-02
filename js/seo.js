@@ -1,9 +1,9 @@
-(function initSeo() {
+﻿(function initSeo() {
   const seoConfig = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.seo
     ? SITE_CONFIG.seo
     : {
         siteUrl: 'https://anna-yakubova.ru',
-        siteName: 'Анна Якубова — Путь к гармонии',
+        siteName: 'Анна Якубова — Внутренняя опора через рисование и матрицу судьбы',
         locale: 'ru_RU',
         language: 'ru-RU',
         defaultImage: 'images/anna-yakubova-expert.png',
