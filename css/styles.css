@@ -1204,8 +1204,14 @@ ul { list-style: none; }
 .neuro-showcase__visual img {
   position: relative;
   z-index: 1;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 35%;
+  padding: 0.5rem;
+  background: var(--ivory);
+  border: 1px solid rgba(184, 149, 106, 0.22);
+  box-shadow: var(--shadow-glow);
 }
 
 .neuro-showcase__text h2 { margin: 0.75rem 0 1.25rem; }
