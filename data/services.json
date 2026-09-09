@@ -67,9 +67,9 @@
         {
           "id": "neuro-1",
           "title": "Индивидуальная онлайн сессия",
-          "price": "",
-          "prodamusUrl": "",
-          "hit": false,
+          "price": "1500",
+          "prodamusUrl": "https://link.payform.ru/?orderId=01a085d9-0257-7d3c-8104-f69fbb74f6ee",
+          "hit": true,
           "order": 1
         },
         {
