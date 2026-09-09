@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Управление дневником — Анна Якубова</title>
+  <title>Админка — Анна Якубова</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
       <div class="admin-login__card">
         <div class="ornament"><span class="ornament__symbol">◈</span></div>
         <h1>Вход в админку</h1>
-        <p>Короткие цитаты и темы — с переходом в соцсети</p>
+        <p>Дневник, услуги и цены — публикация на сайт через GitHub</p>
         <form id="login-form">
           <div class="form-group">
             <label for="admin-password">Пароль</label>
@@ -60,13 +60,18 @@
         <header class="admin-header">
           <div>
             <p class="section__label">Админка</p>
-            <h1>Личный дневник</h1>
-            <p class="admin-header__desc">
+            <h1 id="admin-page-title">Личный дневник</h1>
+            <p class="admin-header__desc" id="admin-page-desc">
               Короткие цитаты и темы — у каждой записи своя ссылка на пост или страницу.
             </p>
           </div>
           <div class="publish-status publish-status--warn" id="publish-status">Подключите GitHub-токен</div>
         </header>
+
+        <nav class="admin-tabs" aria-label="Разделы админки">
+          <button type="button" class="admin-tabs__btn admin-tabs__btn--active" data-admin-tab="diary">Дневник</button>
+          <button type="button" class="admin-tabs__btn" data-admin-tab="services">Услуги и цены</button>
+        </nav>
 
         <section class="admin-token-card">
           <div class="admin-token-card__text">
@@ -84,7 +89,7 @@
           </div>
         </section>
 
-        <div class="admin-grid">
+        <div class="admin-grid" id="tab-diary">
           <section class="admin-editor-card">
             <h2 class="admin-editor-card__title" id="form-title">Новая запись</h2>
             <form id="entry-form">
@@ -138,6 +143,65 @@
           <aside class="admin-sidebar">
             <h2 class="admin-sidebar__title">Записи на сайте</h2>
             <div class="admin-entries" id="entries-list">
+              <p class="admin-empty">Загрузка...</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="admin-grid" id="tab-services" hidden>
+          <section class="admin-editor-card">
+            <h2 class="admin-editor-card__title" id="service-form-title">Новая услуга</h2>
+            <form id="service-form">
+              <input type="hidden" id="service-id">
+              <input type="hidden" id="service-section" value="matrix">
+
+              <div class="form-group">
+                <label>Раздел на сайте</label>
+                <div class="type-toggle" id="service-section-toggle">
+                  <button type="button" class="type-toggle__btn type-toggle__btn--active" data-section="matrix">Матрица</button>
+                  <button type="button" class="type-toggle__btn" data-section="neuro">Нейрографика</button>
+                  <button type="button" class="type-toggle__btn" data-section="integrative">Интегративный</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="service-title">Название услуги</label>
+                <input type="text" id="service-title" required placeholder="Полный разбор матрицы">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group form-group--grow">
+                  <label for="service-price">Цена</label>
+                  <input type="text" id="service-price" placeholder="5000 или 5 000 ₽">
+                  <p class="field-hint">Можно указать число — на сайте появится «5 000 ₽»</p>
+                </div>
+                <div class="form-group">
+                  <label for="service-order">Порядок</label>
+                  <input type="number" id="service-order" min="1" value="1">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="service-prodamus">Ссылка Prodamus</label>
+                <input type="url" id="service-prodamus" placeholder="https://annayakubova.payform.ru/...">
+                <p class="field-hint">По клику на услугу откроется страница оплаты с описанием программы</p>
+              </div>
+
+              <label class="form-check">
+                <input type="checkbox" id="service-hit">
+                <span>Отметить стикером «ХИТ»</span>
+              </label>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="btn btn--primary" id="service-submit-btn">Опубликовать</button>
+                <button type="button" class="btn btn--secondary" id="service-cancel-btn" style="display: none;">Отмена</button>
+              </div>
+            </form>
+          </section>
+
+          <aside class="admin-sidebar">
+            <h2 class="admin-sidebar__title" id="services-list-title">Услуги — Матрица Судьбы</h2>
+            <div class="admin-entries" id="services-list">
               <p class="admin-empty">Загрузка...</p>
             </div>
           </aside>

@@ -3,6 +3,7 @@
     owner: 'galileya2008-byte',
     repo: 'annaYakubova',
     diaryPath: 'data/diary.json',
+    servicesPath: 'data/services.json',
   },
   seo: {
     siteUrl: 'https://anna-yakubova.ru',

@@ -1,0 +1,155 @@
+{
+  "sections": {
+    "matrix": {
+      "title": "Матрица Судьбы",
+      "items": [
+        {
+          "id": "matrix-1",
+          "title": "Полный разбор матрицы",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 1
+        },
+        {
+          "id": "matrix-2",
+          "title": "Разбор основных энергий, зона комфорта души",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": true,
+          "order": 2
+        },
+        {
+          "id": "matrix-3",
+          "title": "Разбор линии денег, линии отношений",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 3
+        },
+        {
+          "id": "matrix-4",
+          "title": "Совместимость пар",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": true,
+          "order": 4
+        },
+        {
+          "id": "matrix-5",
+          "title": "Детская матрица",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": true,
+          "order": 5
+        },
+        {
+          "id": "matrix-6",
+          "title": "Личный финансовый код",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 6
+        },
+        {
+          "id": "matrix-7",
+          "title": "Прогностика на 2027 год",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 7
+        }
+      ]
+    },
+    "neuro": {
+      "title": "Нейрографика",
+      "items": [
+        {
+          "id": "neuro-1",
+          "title": "Индивидуальная онлайн сессия",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 1
+        },
+        {
+          "id": "neuro-2",
+          "title": "Групповой онлайн мастер-класс",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 2
+        },
+        {
+          "id": "neuro-3",
+          "title": "Индивидуальная офлайн сессия (Москва, Балашиха)",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 3
+        },
+        {
+          "id": "neuro-4",
+          "title": "Групповой офлайн мастер-класс (Москва, Балашиха)",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 4
+        },
+        {
+          "id": "neuro-5",
+          "title": "Нейрографика + Матрица судьбы",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 5
+        }
+      ]
+    },
+    "integrative": {
+      "title": "Интегративный подход",
+      "items": [
+        {
+          "id": "int-1",
+          "title": "Индивидуальная онлайн сессия",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 1
+        },
+        {
+          "id": "int-2",
+          "title": "Групповой онлайн мастер-класс",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 2
+        },
+        {
+          "id": "int-3",
+          "title": "Индивидуальная офлайн сессия (Москва, Балашиха)",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 3
+        },
+        {
+          "id": "int-4",
+          "title": "Групповой офлайн мастер-класс (Москва, Балашиха)",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 4
+        },
+        {
+          "id": "int-5",
+          "title": "Интегративный подход + Матрица судьбы",
+          "price": "",
+          "prodamusUrl": "",
+          "hit": false,
+          "order": 5
+        }
+      ]
+    }
+  }
+}

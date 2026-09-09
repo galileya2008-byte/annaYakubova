@@ -8,7 +8,15 @@ const TYPE_LABELS = {
   topic: 'Тема',
 };
 
+const SECTION_LABELS = {
+  matrix: 'Матрица Судьбы',
+  neuro: 'Нейрографика',
+  integrative: 'Интегративный подход',
+};
+
 let entries = [];
+let servicesData = { sections: {} };
+let activeServiceSection = 'matrix';
 let isPublishing = false;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -98,17 +106,48 @@ function initAuth() {
 }
 
 async function initAdmin() {
+  initAdminTabs();
   initTypeToggle();
   initTokenPanel();
   await loadEntries();
+  await loadServices();
   document.getElementById('entry-form').addEventListener('submit', handleSubmit);
   document.getElementById('cancel-btn').addEventListener('click', resetForm);
+  document.getElementById('service-form').addEventListener('submit', handleServiceSubmit);
+  document.getElementById('service-cancel-btn').addEventListener('click', resetServiceForm);
   document.getElementById('save-token-btn').addEventListener('click', saveToken);
   document.getElementById('forget-token-btn').addEventListener('click', forgetToken);
   document.getElementById('entry-date').valueAsDate = new Date();
   updateTypeHints('quote', document.getElementById('topic-hint'), document.getElementById('text-hint'));
+  initServiceSectionToggle();
   updatePublishStatus();
   updateTokenCardDesc();
+}
+
+function initAdminTabs() {
+  const tabs = document.querySelectorAll('[data-admin-tab]');
+  const diaryPanel = document.getElementById('tab-diary');
+  const servicesPanel = document.getElementById('tab-services');
+  const pageTitle = document.getElementById('admin-page-title');
+  const pageDesc = document.getElementById('admin-page-desc');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const key = tab.dataset.adminTab;
+      tabs.forEach((btn) => btn.classList.toggle('admin-tabs__btn--active', btn === tab));
+      diaryPanel.hidden = key !== 'diary';
+      servicesPanel.hidden = key !== 'services';
+
+      if (key === 'services') {
+        pageTitle.textContent = 'Услуги и цены';
+        pageDesc.textContent = 'Добавляйте услуги в разделах сайта. Укажите цену и ссылку Prodamus — клиент перейдёт к оплате.';
+        renderServicesList();
+      } else {
+        pageTitle.textContent = 'Личный дневник';
+        pageDesc.textContent = 'Короткие цитаты и темы — у каждой записи своя ссылка на пост или страницу.';
+      }
+    });
+  });
 }
 
 function initTypeToggle() {
@@ -236,7 +275,7 @@ async function githubPutFile(path, contentBase64, message, token, sha = null) {
   return res.json();
 }
 
-async function publishDiary() {
+async function publishJsonFile(path, payload, message) {
   const token = getToken();
   if (!token) {
     showToast('Подключите GitHub-токен', 'error');
@@ -244,22 +283,15 @@ async function publishDiary() {
     return false;
   }
 
-  const { diaryPath } = SITE_CONFIG.github;
-  const json = JSON.stringify({ entries }, null, 2);
+  const json = JSON.stringify(payload, null, 2);
   const content = btoa(unescape(encodeURIComponent(json)));
 
   isPublishing = true;
   updatePublishStatus('saving');
 
   try {
-    const existing = await githubGetFile(diaryPath, token);
-    await githubPutFile(
-      diaryPath,
-      content,
-      'Обновление дневника',
-      token,
-      existing?.sha || null
-    );
+    const existing = await githubGetFile(path, token);
+    await githubPutFile(path, content, message, token, existing?.sha || null);
     updatePublishStatus('saved');
     showToast('Опубликовано на сайте', 'success');
     return true;
@@ -271,6 +303,22 @@ async function publishDiary() {
   } finally {
     isPublishing = false;
   }
+}
+
+async function publishDiary() {
+  return publishJsonFile(
+    SITE_CONFIG.github.diaryPath,
+    { entries },
+    'Обновление дневника'
+  );
+}
+
+async function publishServices() {
+  return publishJsonFile(
+    SITE_CONFIG.github.servicesPath,
+    servicesData,
+    'Обновление услуг'
+  );
 }
 
 async function loadEntries() {
@@ -456,4 +504,172 @@ function escapeHtml(str) {
 
 function escapeAttr(str) {
   return escapeHtml(str);
+}
+
+async function loadServices() {
+  try {
+    const res = await fetch(`${SITE_CONFIG.github.servicesPath}?t=${Date.now()}`);
+    servicesData = await res.json();
+  } catch {
+    servicesData = { sections: {} };
+  }
+  ensureServiceSections();
+  renderServicesList();
+}
+
+function ensureServiceSections() {
+  if (!servicesData.sections) servicesData.sections = {};
+  Object.keys(SECTION_LABELS).forEach((key) => {
+    if (!servicesData.sections[key]) {
+      servicesData.sections[key] = { title: SECTION_LABELS[key], items: [] };
+    }
+  });
+}
+
+function initServiceSectionToggle() {
+  document.querySelectorAll('[data-section]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      setActiveServiceSection(btn.dataset.section);
+    });
+  });
+  setActiveServiceSection(activeServiceSection);
+}
+
+function setActiveServiceSection(section) {
+  activeServiceSection = section;
+  document.getElementById('service-section').value = section;
+  document.querySelectorAll('[data-section]').forEach((btn) => {
+    btn.classList.toggle('type-toggle__btn--active', btn.dataset.section === section);
+  });
+  const listTitle = document.getElementById('services-list-title');
+  if (listTitle) listTitle.textContent = `Услуги — ${SECTION_LABELS[section]}`;
+  resetServiceForm();
+  renderServicesList();
+}
+
+function getSectionItems(section = activeServiceSection) {
+  return servicesData.sections?.[section]?.items || [];
+}
+
+function renderServicesList() {
+  const list = document.getElementById('services-list');
+  if (!list) return;
+
+  const items = [...getSectionItems()].sort((a, b) => (a.order || 0) - (b.order || 0));
+  if (!items.length) {
+    list.innerHTML = '<p class="admin-empty">В этом разделе пока нет услуг</p>';
+    return;
+  }
+
+  list.innerHTML = items
+    .map((item) => {
+      const price = item.price ? ` · ${escapeHtml(item.price)}` : '';
+      const link = item.prodamusUrl
+        ? escapeHtml(item.prodamusUrl.replace(/^https?:\/\//, '').slice(0, 36))
+        : 'без ссылки Prodamus';
+      const hit = item.hit ? ' · ХИТ' : '';
+      return `
+        <article class="admin-entry">
+          <div class="admin-entry__main">
+            <span class="admin-entry__badge admin-entry__badge--topic">Услуга${hit}</span>
+            <h4 class="admin-entry__title">${escapeHtml(item.title)}</h4>
+            <p class="admin-entry__meta">${link}${price}</p>
+          </div>
+          <div class="admin-entry__actions">
+            <button type="button" class="admin-btn admin-btn--edit" data-service-id="${escapeAttr(item.id)}">Изменить</button>
+            <button type="button" class="admin-btn admin-btn--delete" data-service-id="${escapeAttr(item.id)}">Удалить</button>
+          </div>
+        </article>
+      `;
+    })
+    .join('');
+
+  list.querySelectorAll('[data-service-id].admin-btn--edit').forEach((btn) => {
+    btn.addEventListener('click', () => editService(btn.dataset.serviceId));
+  });
+  list.querySelectorAll('[data-service-id].admin-btn--delete').forEach((btn) => {
+    btn.addEventListener('click', () => deleteService(btn.dataset.serviceId));
+  });
+}
+
+async function handleServiceSubmit(e) {
+  e.preventDefault();
+  if (isPublishing) return;
+
+  const section = document.getElementById('service-section').value;
+  const id = document.getElementById('service-id').value;
+  const items = getSectionItems(section);
+  const nextOrder = items.length
+    ? Math.max(...items.map((item) => item.order || 0)) + 1
+    : 1;
+
+  const service = {
+    id: id || `${section}-${Date.now()}`,
+    title: document.getElementById('service-title').value.trim(),
+    price: document.getElementById('service-price').value.trim(),
+    prodamusUrl: document.getElementById('service-prodamus').value.trim(),
+    hit: document.getElementById('service-hit').checked,
+    order: Number(document.getElementById('service-order').value) || nextOrder,
+  };
+
+  if (!service.title) {
+    showToast('Введите название услуги', 'error');
+    return;
+  }
+
+  if (id) {
+    const idx = items.findIndex((item) => item.id === id);
+    if (idx !== -1) items[idx] = service;
+  } else {
+    items.push(service);
+  }
+
+  servicesData.sections[section].items = items;
+  const ok = await publishServices();
+  if (!ok) return;
+
+  setActiveServiceSection(section);
+  showToast('Услуга опубликована', 'success');
+}
+
+function editService(id) {
+  const items = getSectionItems();
+  const service = items.find((item) => item.id === id);
+  if (!service) return;
+
+  document.getElementById('service-id').value = service.id;
+  document.getElementById('service-title').value = service.title || '';
+  document.getElementById('service-price').value = service.price || '';
+  document.getElementById('service-prodamus').value = service.prodamusUrl || '';
+  document.getElementById('service-hit').checked = Boolean(service.hit);
+  document.getElementById('service-order').value = service.order || 1;
+  document.getElementById('service-submit-btn').textContent = 'Сохранить';
+  document.getElementById('service-cancel-btn').style.display = 'inline-flex';
+  document.getElementById('service-form-title').textContent = 'Редактирование услуги';
+}
+
+async function deleteService(id) {
+  if (!confirm('Удалить услугу с сайта?')) return;
+  const section = activeServiceSection;
+  servicesData.sections[section].items = getSectionItems(section).filter((item) => item.id !== id);
+  const ok = await publishServices();
+  if (ok) {
+    renderServicesList();
+    showToast('Услуга удалена', 'info');
+  }
+}
+
+function resetServiceForm() {
+  const form = document.getElementById('service-form');
+  if (!form) return;
+  form.reset();
+  document.getElementById('service-id').value = '';
+  document.getElementById('service-section').value = activeServiceSection;
+  document.getElementById('service-order').value = getSectionItems().length + 1;
+  document.getElementById('service-submit-btn').textContent = 'Опубликовать';
+  document.getElementById('service-cancel-btn').style.display = 'none';
+  document.getElementById('service-form-title').textContent = 'Новая услуга';
+  document.querySelectorAll('[data-section]').forEach((btn) => {
+    btn.classList.toggle('type-toggle__btn--active', btn.dataset.section === activeServiceSection);
+  });
 }

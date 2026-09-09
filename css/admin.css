@@ -80,6 +80,32 @@
   max-width: 520px;
 }
 
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-tabs__btn {
+  padding: 0.65rem 1.15rem;
+  border: 1px solid rgba(184, 149, 106, 0.28);
+  background: var(--ivory);
+  color: var(--slate);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.admin-tabs__btn:hover,
+.admin-tabs__btn--active {
+  background: var(--evergreen);
+  border-color: var(--evergreen);
+  color: var(--ivory);
+}
+
 /* ===== Token Card ===== */
 .admin-token-card {
   display: flex;
