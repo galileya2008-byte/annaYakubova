@@ -215,22 +215,38 @@ ul { list-style: none; }
 }
 
 .logo__tagline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 26rem;
+  margin-top: 0.35rem;
+}
+
+/* Подзаголовок бренда под именем (не H1 страницы) */
+.logo__tagline-lead {
   display: block;
-  max-width: 21rem;
-  font-size: 0.54rem;
+  font-family: var(--font-sans);
+  font-size: clamp(0.8125rem, 0.35vw + 0.72rem, 0.9375rem);
+  font-weight: 400;
+  line-height: 1.45;
   color: var(--forest);
-  letter-spacing: 0.02em;
-  line-height: 1.4;
-  text-transform: none;
-  margin-top: 0.25rem;
+  letter-spacing: 0.01em;
 }
 
-.header .logo {
-  max-width: min(21rem, 42vw);
+.logo__tagline-dir {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: clamp(0.6875rem, 0.2vw + 0.62rem, 0.78125rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.05em;
+  color: var(--olive);
 }
 
-.footer .logo__tagline {
-  max-width: 22rem;
+@media (min-width: 1025px) {
+  .header .logo {
+    max-width: min(24rem, 38vw);
+  }
 }
 
 .nav {
@@ -2212,7 +2228,18 @@ body.cookie-banner-visible {
 }
 
 .footer .logo__name { color: var(--ivory); }
-.footer .logo__tagline { color: rgba(250, 248, 244, 0.5); max-width: 16rem; }
+.footer .logo__tagline { max-width: 24rem; }
+
+.footer .logo__tagline-lead {
+  color: rgba(250, 248, 244, 0.88);
+  font-size: 0.8125rem;
+}
+
+.footer .logo__tagline-dir {
+  color: rgba(250, 248, 244, 0.55);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
 
 .footer__desc {
   font-size: 0.88rem;
@@ -2345,14 +2372,20 @@ body.cookie-banner-visible {
   }
 
   .header .logo__tagline {
-    display: block;
     max-width: none;
-    font-size: clamp(0.62rem, 2.6vw, 0.72rem);
-    line-height: 1.35;
-    color: var(--forest);
-    font-weight: 400;
-    opacity: 1;
-    margin-top: 0.25rem;
+    margin-top: 0.35rem;
+    gap: 0.35rem;
+  }
+
+  .header .logo__tagline-lead {
+    font-size: clamp(0.8125rem, 3.6vw, 0.9375rem);
+    line-height: 1.4;
+    color: var(--evergreen);
+  }
+
+  .header .logo__tagline-dir {
+    font-size: clamp(0.6875rem, 2.9vw, 0.78125rem);
+    color: var(--olive);
   }
 
   body.menu-open .header {
@@ -2442,7 +2475,7 @@ body.cookie-banner-visible {
 
 @media (max-width: 768px) {
   :root {
-    --header-h: 76px;
+    --header-h: 88px;
   }
 
   .header {
