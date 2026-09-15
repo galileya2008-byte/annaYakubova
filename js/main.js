@@ -112,7 +112,12 @@ function initReveal() {
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    {
+      threshold: 0.08,
+      rootMargin: window.matchMedia('(max-width: 768px)').matches
+        ? '0px 0px 0px 0px'
+        : '0px 0px -40px 0px',
+    }
   );
 
   items.forEach((el) => observer.observe(el));
