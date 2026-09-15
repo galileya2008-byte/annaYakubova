@@ -216,17 +216,21 @@ ul { list-style: none; }
 
 .logo__tagline {
   display: block;
-  max-width: 15rem;
-  font-size: 0.58rem;
-  color: var(--gold);
-  letter-spacing: 0.04em;
-  line-height: 1.45;
+  max-width: 21rem;
+  font-size: 0.54rem;
+  color: var(--forest);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
   text-transform: none;
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
+}
+
+.header .logo {
+  max-width: min(21rem, 42vw);
 }
 
 .footer .logo__tagline {
-  max-width: 16rem;
+  max-width: 22rem;
 }
 
 .nav {

@@ -3,7 +3,7 @@
     ? SITE_CONFIG.seo
     : {
         siteUrl: 'https://anna-yakubova.ru',
-        siteName: 'Анна Якубова — Внутренняя опора через рисование и матрицу судьбы',
+        siteName: 'Анна Якубова — помогаю лучше понять себя и найти внутреннюю опору',
         locale: 'ru_RU',
         language: 'ru-RU',
         defaultImage: 'images/anna-yakubova-expert.png',
