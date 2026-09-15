@@ -395,11 +395,17 @@ ul { list-style: none; }
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold);
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--plum);
   margin-bottom: 1.5rem;
+  max-width: 28rem;
+  line-height: 1.35;
+  text-wrap: balance;
 }
 
 .hero__label::before,
@@ -2503,18 +2509,20 @@ body.cookie-banner-visible {
   }
 
   .hero__label {
-    font-size: 0.72rem;
-    color: var(--forest);
-    letter-spacing: 0.18em;
+    font-size: clamp(1.05rem, 4.2vw, 1.2rem);
+    color: var(--plum);
+    max-width: none;
   }
 
   .hero__label::before,
   .hero__label::after {
-    background: linear-gradient(90deg, transparent, rgba(36, 61, 52, 0.35));
+    flex-shrink: 0;
+    width: 1.25rem;
+    background: linear-gradient(90deg, transparent, rgba(90, 58, 72, 0.35));
   }
 
   .hero__label::after {
-    background: linear-gradient(90deg, rgba(36, 61, 52, 0.35), transparent);
+    background: linear-gradient(90deg, rgba(90, 58, 72, 0.35), transparent);
   }
 
   .section { padding: 3.5rem 0; }
