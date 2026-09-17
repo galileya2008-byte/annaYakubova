@@ -1751,11 +1751,109 @@ ul { list-style: none; }
   color: var(--plum);
 }
 
+.contact-card__lead {
+  font-size: 0.95rem;
+  color: var(--slate);
+  line-height: 1.65;
+  margin-bottom: 1.35rem;
+  text-align: center;
+}
+
+.contact-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.contact-topic {
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: var(--cream);
+  border: 1px solid rgba(36, 61, 52, 0.14);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.contact-topic:hover {
+  border-color: var(--gold);
+  background: var(--mint);
+}
+
+.contact-topic--active {
+  background: var(--evergreen);
+  color: var(--ivory);
+  border-color: var(--evergreen);
+}
+
+.contact-template label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--slate);
+  margin-bottom: 0.45rem;
+  font-weight: 500;
+}
+
+.contact-template__field {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border: 1.5px solid var(--sage);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  background: var(--mint);
+  color: var(--charcoal);
+  resize: vertical;
+  min-height: 220px;
+  margin-bottom: 0.75rem;
+}
+
+.contact-template__field:focus {
+  outline: none;
+  border-color: var(--forest);
+}
+
+.contact-template__copy {
+  width: 100%;
+}
+
+.contact-copy-status {
+  min-height: 1.25rem;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--taupe);
+  text-align: center;
+}
+
+.contact-copy-status--ok {
+  color: var(--forest);
+}
+
+.contact-hint {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--taupe);
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
 .feedback-fallback {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px dashed var(--sage);
   text-align: center;
+}
+
+.feedback-fallback--compact {
+  margin-top: 1.75rem;
 }
 
 .feedback-fallback p {

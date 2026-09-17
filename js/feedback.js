@@ -1,120 +1,152 @@
 document.addEventListener('DOMContentLoaded', () => {
-  initServiceFromUrl();
-  initDirectContactLinks();
-  initForm();
+  initContactPage();
 });
 
-function initDirectContactLinks() {
+const SERVICE_LABELS = {
+  matrix: 'Матрица Судьбы',
+  neuro: 'Нейрографика',
+  integrative: 'Интегративный подход',
+  general: 'Общий вопрос',
+};
+
+const MESSAGE_TEMPLATES = {
+  matrix: `Здравствуйте, Анна!
+
+Хочу записаться на консультацию по Матрице Судьбы.
+
+Меня зовут:
+Дата рождения (для расчёта):
+Удобное время для связи:
+
+Кратко о запросе (необязательно):`,
+
+  neuro: `Здравствуйте, Анна!
+
+Хочу записаться на занятие / практику по нейрографике.
+
+Меня зовут:
+Удобное время для связи:
+
+Кратко о запросе (необязательно):`,
+
+  integrative: `Здравствуйте, Анна!
+
+Хочу записаться на консультацию по интегративному подходу.
+
+Меня зовут:
+Удобное время для связи:
+
+Кратко о запросе (необязательно):`,
+
+  general: `Здравствуйте, Анна!
+
+Хочу записаться на консультацию.
+
+Меня зовут:
+Удобное время для связи:
+
+Кратко о запросе:`,
+};
+
+function initContactPage() {
+  const textarea = document.getElementById('contact-message');
+  const topicRoot = document.getElementById('contact-topics');
+  if (!textarea || !topicRoot) return;
+
+  const services = SITE_CONFIG.form?.services || SERVICE_LABELS;
+  const params = new URLSearchParams(window.location.search);
+  let activeService = params.get('service') || 'general';
+  if (!services[activeService] && !MESSAGE_TEMPLATES[activeService]) {
+    activeService = 'general';
+  }
+
+  topicRoot.innerHTML = '';
+  Object.entries(services).forEach(([value, label]) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'contact-topic';
+    btn.dataset.service = value;
+    btn.textContent = label;
+    btn.setAttribute('aria-pressed', value === activeService ? 'true' : 'false');
+    if (value === activeService) btn.classList.add('contact-topic--active');
+    btn.addEventListener('click', () => setActiveService(value, textarea, topicRoot));
+    topicRoot.appendChild(btn);
+  });
+
+  setActiveService(activeService, textarea, topicRoot, false);
+  initDirectContactLinks(textarea);
+  initCopyButton(textarea);
+}
+
+function setActiveService(service, textarea, topicRoot, focusTextarea = true) {
+  const template = MESSAGE_TEMPLATES[service] || MESSAGE_TEMPLATES.general;
+  textarea.value = template;
+
+  topicRoot.querySelectorAll('.contact-topic').forEach((btn) => {
+    const isActive = btn.dataset.service === service;
+    btn.classList.toggle('contact-topic--active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  updateMessengerLinks(textarea.value);
+  if (focusTextarea) textarea.focus();
+}
+
+function initDirectContactLinks(textarea) {
   const formConfig = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form ? SITE_CONFIG.form : {};
-  const urls = {
+  const base = {
     telegram: formConfig.telegramFallback || 'https://t.me/anna_yakubova79',
     max: formConfig.maxProfile || '',
-    whatsapp: formConfig.whatsappChat || '',
+    whatsapp: formConfig.whatsappChat || 'https://wa.me/79264941424',
   };
 
   document.querySelectorAll('[data-contact-link]').forEach((link) => {
     const key = link.getAttribute('data-contact-link');
-    const href = urls[key];
-    if (href) {
-      link.href = href;
-    } else {
-      link.hidden = true;
+    link.dataset.baseHref = base[key] || '';
+    if (!base[key]) link.hidden = true;
+  });
+
+  textarea.addEventListener('input', () => updateMessengerLinks(textarea.value));
+  updateMessengerLinks(textarea.value);
+}
+
+function updateMessengerLinks(message) {
+  const text = message.trim();
+  document.querySelectorAll('[data-contact-link]').forEach((link) => {
+    const key = link.getAttribute('data-contact-link');
+    const base = link.dataset.baseHref;
+    if (!base) return;
+
+    if (key === 'whatsapp') {
+      const waBase = base.split('?')[0];
+      link.href = text ? `${waBase}?text=${encodeURIComponent(text)}` : base;
+      return;
     }
+
+    link.href = base;
   });
 }
 
-function initServiceFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  const service = params.get('service') || 'general';
-  const select = document.getElementById('form-service');
-  const services = SITE_CONFIG.form?.services || {};
+function initCopyButton(textarea) {
+  const copyBtn = document.getElementById('contact-copy');
+  const status = document.getElementById('contact-copy-status');
+  if (!copyBtn) return;
 
-  if (select.options.length === 0) {
-    Object.entries(services).forEach(([value, label]) => {
-      const opt = document.createElement('option');
-      opt.value = value;
-      opt.textContent = label;
-      select.appendChild(opt);
-    });
-  }
-
-  if (services[service]) {
-    select.value = service;
-  }
-}
-
-function initForm() {
-  const form = document.getElementById('feedback-form');
-  const webhookUrl = SITE_CONFIG.form?.webhookUrl;
-  const submitBtn = document.getElementById('form-submit');
-
-  if (!webhookUrl) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Форма скоро будет доступна';
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (!webhookUrl) return;
-
-    const payload = {
-      service: SITE_CONFIG.form.services[form.service.value] || form.service.value,
-      name: form.name.value.trim(),
-      contact: form.contact.value.trim(),
-      message: form.message.value.trim(),
-    };
-
-    if (!payload.name || !payload.contact) {
-      showFormStatus('Заполните имя и контакт', 'error');
-      return;
-    }
-
-    const consent = document.getElementById('form-consent');
-    if (consent && !consent.checked) {
-      showFormStatus('Необходимо согласие на обработку персональных данных', 'error');
-      return;
-    }
-
-    setFormLoading(true);
-    showFormStatus('', '');
-
+  copyBtn.addEventListener('click', async () => {
+    const text = textarea.value;
     try {
-      const res = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (data.ok) {
-        form.reset();
-        initServiceFromUrl();
-        showFormStatus('Заявка отправлена! Анна свяжется с вами в ближайшее время.', 'success');
-      } else {
-        throw new Error(data.error || 'Ошибка отправки');
+      await navigator.clipboard.writeText(text);
+      if (status) {
+        status.textContent = 'Текст скопирован — вставьте его в сообщение';
+        status.className = 'contact-copy-status contact-copy-status--ok';
       }
     } catch {
-      showFormStatus(
-        'Не удалось отправить. Напишите напрямую в Telegram, MAX или WhatsApp.',
-        'error'
-      );
-    } finally {
-      setFormLoading(false);
+      textarea.select();
+      document.execCommand('copy');
+      if (status) {
+        status.textContent = 'Текст выделен — нажмите «Копировать» или Ctrl+C';
+        status.className = 'contact-copy-status';
+      }
     }
   });
-}
-
-function setFormLoading(loading) {
-  const btn = document.getElementById('form-submit');
-  btn.disabled = loading;
-  btn.textContent = loading ? 'Отправка…' : 'Отправить заявку';
-}
-
-function showFormStatus(text, type) {
-  const el = document.getElementById('form-status');
-  el.textContent = text;
-  el.className = 'form-status' + (type ? ` form-status--${type}` : '');
-  el.style.display = text ? 'block' : 'none';
 }

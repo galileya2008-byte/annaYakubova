@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=premium2026m7">
+  <link rel="stylesheet" href="css/styles.css?v=premium2026m8">
   <script src="js/config.js"></script>
   <script src="js/seo.js"></script>
 </head>
@@ -43,67 +43,48 @@
         </p>
         <h1 class="page-hero__title">Записаться на консультацию</h1>
         <p class="page-hero__desc">
-          Оставьте заявку или напишите в Telegram, MAX или WhatsApp — Анна свяжется с вами.
+          Скопируйте готовый текст первого сообщения и напишите в Telegram, MAX или WhatsApp.
         </p>
       </div>
     </section>
 
     <section class="content">
       <div class="container container--narrow reveal">
-        <div class="feedback-card">
-          <form class="feedback-form" id="feedback-form">
-            <div class="form-group">
-              <label for="form-service">Направление</label>
-              <select id="form-service" name="service" required></select>
-            </div>
+        <div class="feedback-card contact-card">
+          <p class="contact-card__lead">
+            Выберите направление — подставим его в текст. Заполните строки в шаблоне, скопируйте сообщение и отправьте в удобном мессенджере.
+          </p>
 
-            <div class="form-group">
-              <label for="form-name">Ваше имя</label>
-              <input type="text" id="form-name" name="name" required placeholder="Как к вам обращаться">
-            </div>
+          <div class="contact-topics" id="contact-topics" role="group" aria-label="Направление консультации"></div>
 
-            <div class="form-group">
-              <label for="form-contact">Telegram или телефон</label>
-              <input type="text" id="form-contact" name="contact" required placeholder="@username или +7...">
-            </div>
-
-            <div class="form-group">
-              <label for="form-message">Сообщение <span class="label-hint">(необязательно)</span></label>
-              <textarea id="form-message" name="message" rows="4" placeholder="Кратко опишите ваш запрос или удобное время"></textarea>
-            </div>
-
-            <p class="form-status" id="form-status" style="display: none;" role="status"></p>
-
-            <label class="form-check form-check--consent">
-              <input type="checkbox" id="form-consent" name="consent" required>
-              <span>
-                Я даю согласие на обработку персональных данных в соответствии с
-                <a href="politika-konfidencialnosti.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.
-              </span>
-            </label>
-
-            <button type="submit" class="btn btn--primary feedback-form__submit" id="form-submit">
-              Отправить заявку
+          <div class="contact-template">
+            <label for="contact-message">Текст для первого сообщения</label>
+            <textarea id="contact-message" class="contact-template__field" rows="11" spellcheck="false"></textarea>
+            <button type="button" class="btn btn--secondary contact-template__copy" id="contact-copy">
+              Скопировать текст
             </button>
-          </form>
+            <p class="contact-copy-status" id="contact-copy-status" role="status" aria-live="polite"></p>
+          </div>
 
-          <div class="feedback-fallback" id="form-fallback">
-            <p>Или напишите напрямую:</p>
+          <div class="feedback-fallback feedback-fallback--compact">
+            <p>Написать Анне:</p>
             <div class="feedback-direct__actions">
               <a href="#" class="btn btn--accent feedback-direct__btn" data-contact-link="telegram" target="_blank" rel="noopener noreferrer">
-                Написать в Telegram
+                Telegram
               </a>
               <a href="#" class="btn btn--primary feedback-direct__btn" data-contact-link="max" target="_blank" rel="noopener noreferrer">
-                Написать в MAX
+                MAX
               </a>
               <a href="#" class="btn btn--whatsapp feedback-direct__btn" data-contact-link="whatsapp" target="_blank" rel="noopener noreferrer">
-                Написать в WhatsApp
+                WhatsApp
               </a>
             </div>
+            <p class="contact-hint">В WhatsApp текст подставится автоматически. В Telegram удобнее сначала нажать «Скопировать», затем открыть чат и вставить сообщение.</p>
           </div>
 
           <p class="feedback-note">
-            Отправляя заявку, вы подтверждаете согласие на обработку указанных данных для связи с вами.
+            Отправляя сообщение, вы соглашаетесь на обработку указанных данных для связи с вами — см.
+            <a href="politika-konfidencialnosti.html">политику конфиденциальности</a>.
           </p>
           <p class="feedback-legal" id="feedback-legal"></p>
         </div>
@@ -164,6 +145,6 @@
 
   <script src="js/cookies.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/feedback.js?v=contact2026"></script>
+  <script src="js/feedback.js?v=template2026"></script>
 </body>
 </html>
