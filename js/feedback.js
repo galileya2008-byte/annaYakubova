@@ -1,7 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
   initServiceFromUrl();
+  initDirectContactLinks();
   initForm();
 });
+
+function initDirectContactLinks() {
+  const formConfig = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form ? SITE_CONFIG.form : {};
+  const urls = {
+    telegram: formConfig.telegramFallback || 'https://t.me/anna_yakubova79',
+    max: formConfig.maxProfile || '',
+    whatsapp: formConfig.whatsappChat || '',
+  };
+
+  document.querySelectorAll('[data-contact-link]').forEach((link) => {
+    const key = link.getAttribute('data-contact-link');
+    const href = urls[key];
+    if (href) {
+      link.href = href;
+    } else {
+      link.hidden = true;
+    }
+  });
+}
 
 function initServiceFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -26,11 +46,9 @@ function initServiceFromUrl() {
 function initForm() {
   const form = document.getElementById('feedback-form');
   const webhookUrl = SITE_CONFIG.form?.webhookUrl;
-  const fallback = document.getElementById('form-fallback');
   const submitBtn = document.getElementById('form-submit');
 
   if (!webhookUrl) {
-    fallback.style.display = 'block';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Форма скоро будет доступна';
   }
@@ -79,7 +97,7 @@ function initForm() {
       }
     } catch {
       showFormStatus(
-        'Не удалось отправить. Напишите напрямую в Telegram.',
+        'Не удалось отправить. Напишите напрямую в Telegram, MAX или WhatsApp.',
         'error'
       );
     } finally {

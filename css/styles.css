@@ -1764,6 +1764,29 @@ ul { list-style: none; }
   margin-bottom: 0.75rem;
 }
 
+.feedback-direct__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.feedback-direct__btn {
+  width: 100%;
+}
+
+.btn--whatsapp {
+  background: linear-gradient(135deg, #2a7d4f 0%, #1f6340 100%);
+  color: var(--ivory);
+  box-shadow: 0 4px 20px rgba(31, 99, 64, 0.22);
+}
+
+.btn--whatsapp:hover {
+  background: linear-gradient(135deg, #1f6340 0%, #2a7d4f 100%);
+  color: var(--ivory);
+}
+
 .feedback-note {
   margin-top: 1.25rem;
   font-size: 0.78rem;
